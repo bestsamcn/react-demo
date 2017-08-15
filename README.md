@@ -1,17 +1,15 @@
 # React-demo
 
 ## 结构
-
 ```
 │  .babelrc
 │  .editorconfig
 │  .gitignore
-│  index.html
+│  index.html                           模板
 │  package.json
 │  postcss.config.js
 │  README.md
-│  theme.less
-│  tree.txt                         
+│  theme.less                           antd自定义主题
 │  
 ├─conf                                  webpack配置
 │      node.server.js                   生成环境预览
@@ -72,7 +70,6 @@
         └─user
                 Add.js
                 index.js
-
 ```
 
 ## 开发
