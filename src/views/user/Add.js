@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button } from '@/components/user';
+import { Button, Article } from '@/components/user';
 import ACTS from '../../redux/actions';
 import { connect } from 'react-redux';
 import '@/assets/css/user/index.css';
+import store from '@/redux';
 
 class Add extends React.Component{
 	constructor(props) {
@@ -13,10 +14,9 @@ class Add extends React.Component{
 		}
 	}
 	onSubmit(){
-		console.log(this.state);
 		this.props.dispatch(ACTS.auth.setLogin(!this.props.state.auth.isLogin));
 		this.props.dispatch(ACTS.auth.setUserInfo(this.state));
-
+		console.log(store.getState());
 	}
 	onInputChange(e){
 		this.setState({
@@ -29,6 +29,7 @@ class Add extends React.Component{
 				<input type="text" name="name" onChange={this.onInputChange.bind(this)}/>
 				<input type="text" name="password" onChange={this.onInputChange.bind(this)}/>
 				<Button buttonText={'Add'} onButtonClick={this.onSubmit.bind(this)}/>
+				<Article />
 			</form>
 		)
 	}

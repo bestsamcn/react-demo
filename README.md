@@ -72,6 +72,7 @@
                 index.js
 ```
 
+
 ## 开发
 1. 静态文件夹全部放在`assets`中对应的文件夹
 2. 组件文件放在`/src/components`中
