@@ -5,6 +5,7 @@ import { browserHistory, IndexRoute, Route, Router } from 'react-router';
 import App from './App';
 import { Add } from './views/user';
 import TodoList from './views/todolist';
+import SideMenu from './views/sidemenu';
 
 //生成环境按需加载
 // const App = (location, cb) => {
@@ -19,6 +20,7 @@ const routes = (
             <Route path="/" component={App}>
                 <IndexRoute component={Add} />
                 <Route path="/todo" component={TodoList} />
+                <Route path="/menu" component={SideMenu} />
             </Route>
         </Router>
     </div>
