@@ -32,15 +32,16 @@ class SideMenu extends React.Component {
 			panes:[]
 		}
 	}
-	onChange = (activeKey) => {
+	onChange(activeKey){
 		this.setState({
 			activeKey
 		});
 	}
-	onEdit = (targetKey, action) => {
+	onEdit(targetKey, action){
+		console.log(targetKey, action)
 		this[action](targetKey);
 	}
-	add = () => {
+	add(){
 		const panes = this.state.panes;
 		const activeKey = `newTab${this.newTabIndex++}`;
 		panes.push({
@@ -53,7 +54,8 @@ class SideMenu extends React.Component {
 			activeKey
 		});
 	}
-	remove = (targetKey) => {
+	remove(targetKey){
+		console.log(this.state.panes)
 		let activeKey = this.state.activeKey;
 		let lastIndex;
 		this.state.panes.forEach((pane, i) => {
@@ -61,7 +63,9 @@ class SideMenu extends React.Component {
 				lastIndex = i - 1;
 			}
 		});
-		const panes = this.state.panes.filter(pane => pane.key !== targetKey);
+		const panes = this.state.panes.filter(pane => pane.key != targetKey);
+
+		console.log(panes, 'filter')
 		if (lastIndex >= 0 && activeKey === targetKey) {
 			activeKey = panes[lastIndex].key;
 		}
@@ -71,19 +75,20 @@ class SideMenu extends React.Component {
 		});
 	}
 	setIframe(item){
+		console.log(item, this.state.panes)
 		var obj = {
 			title:item.key,
-			view:item.key
+			view:item.key,
+			key:this.state.panes.length
 		}
-		console.log(this.state.panes.indexOf(obj), 'fffffffffffff')
-		if(this.state.panes.indexOf(obj) >=0){
-			this.setState({
-				activeKey:this.state.panes.indexOf(obj).toString()
-			});
-			return;
+		for(var i=0; i<this.state.panes.length; i++){
+			if(this.state.panes[i].view == obj.view ){
+				this.setState({activeKey:i.toString()});
+				return;
+			}
 		}
 		this.state.panes.push(obj);
-		this.setState({panes:this.state.panes, activeKey:this.state.panes.length.toString()})
+		this.setState({panes:this.state.panes, activeKey:(this.state.panes.length-1).toString()})
 	}
 	render() {
 		return (
@@ -106,14 +111,14 @@ class SideMenu extends React.Component {
 				        <Content style={{position:'relative'}}>
 							 	<Tabs
 						          	hideAdd
-						          	onChange={this.onChange}
+						          	onChange={this.onChange.bind(this)}
 						          	activeKey={this.state.activeKey}
 						          	type="editable-card"
-						          	onEdit={this.onEdit}
+						          	onEdit={this.onEdit.bind(this)}
 						        >
 						          	{
 						          		this.state.panes.map((pane,index) => <TabPane tab={pane.title} key={index}>
-						          			<div className="page-box" style={{width:'100%', height:'100%', position:'fixed'}}>
+						          			<div className="page-box moveup" style={{width:'100%', height:'100%', position:'fixed'}}>
 									     		<iframe width="100%" height="100%" src={pane.view} />
 									     	</div>
 						          		</TabPane>)}

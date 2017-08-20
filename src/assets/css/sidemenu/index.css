@@ -16,3 +16,31 @@
 	height:100%;
 	width:100%;
 }
+.moveup{
+    animation:moveup 1s ease-in-out ;
+    -webkit-animation:moveup 1s ease-in-out;
+}
+@keyframes moveup{
+    from{
+        opacity: 0;
+        transform:translate3d(0,10px,0);
+        -webkit-transform:translate3d(0,10px,0);
+    }
+    to{
+        opacity: 1;
+        transform:translate3d(0,0,0);
+        -webkit-transform:translate3d(0,0,0);
+    }
+}
+@-webkit-keyframes moveup{
+    from{
+        opacity: 0.2;
+        transform:translate3d(0,10px,0);
+        -webkit-transform:translate3d(0,10px,0);
+    }
+    to{
+        opacity: 1;
+        transform:translate3d(0,0,0);
+        -webkit-transform:translate3d(0,0,0);
+    }
+}
