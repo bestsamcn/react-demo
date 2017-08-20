@@ -5,3 +5,14 @@
 	left:0;
 	top:0;
 }
+.admin .ant-layout{
+	height:100%
+}
+.admin .ant-tabs{
+	overflow:visible;
+}
+.admin .ant-tabs-content .ant-tabs-content-no-animated{
+	position: fixed;
+	height:100%;
+	width:100%;
+}
