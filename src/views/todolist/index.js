@@ -21,8 +21,9 @@ class TodoList extends React.Component{
 			name:this.state.name,
 			isCompleted:false
 		}
+		this.state.todoList.push(obj)
 		this.setState({
-			todoList:this.state.todoList.concat(obj),
+			todoList:this.state.todoList,
 			name:''
 		});
 	}
@@ -35,13 +36,13 @@ class TodoList extends React.Component{
 		this.setState({
 			completed:_length,
 			todoList:this.state.todoList
-		}) 
+		}); 
 	}
 	onDelClick(index){
 		this.state.todoList.splice(index, 1);
 		this.setState({
 			todoList:this.state.todoList
-		})
+		});
 	}
 	render(){
 		return(

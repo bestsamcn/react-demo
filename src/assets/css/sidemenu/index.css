@@ -10,15 +10,58 @@
 }
 .admin .ant-tabs{
 	overflow:visible;
+    height: 100%;
+
+}
+.admin .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab{
+    padding-left:30px;
+    padding-right: 30px;
+}
+.admin .page-box{
+    padding:10px;
+    height: 100%;
+}
+.admin .ant-tabs-content{
+    margin-bottom: 0;
+}
+.admin .ant-tabs-tabpane, .admin .ant-tabs-tabpane-active{
+    height:100%
+}
+.admin .ant-tabs-content{
+    height:100%
+}
+.admin .ant-layout-content{
+    overflow: hidden;
 }
 .admin .ant-tabs-content .ant-tabs-content-no-animated{
 	position: fixed;
 	height:100%;
 	width:100%;
 }
+.admin .ant-layout-sider{
+    width:initial !important;
+    flex:initial !important;
+}
+.admin .ant-menu-item{
+    padding-right: 40px;
+}
 .moveup{
     animation:moveup 1s ease-in-out ;
     -webkit-animation:moveup 1s ease-in-out;
+}
+.admin iframe{
+    outline: none;
+    border:none;
+}
+.admin .toggle-sidebar{
+   text-align: center;
+   line-height: 32px;
+   background: rgba(0, 0, 0, 0.5);
+   font-size: 18px;
+   color:#fff;
+}
+.admin .toggle-sidebar a{
+    color: #fff;
 }
 @keyframes moveup{
     from{
@@ -42,5 +85,28 @@
         opacity: 1;
         transform:translate3d(0,0,0);
         -webkit-transform:translate3d(0,0,0);
+    }
+}
+@media screen and (min-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px
+    }
+    ::-webkit-scrollbar-button:vertical {
+        display: none
+    }
+    ::-webkit-scrollbar-corner, ::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+        border-radius: 10px
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, .3)
+    }
+    ::-webkit-scrollbar-thumb:vertical:hover {
+        background-color: rgba(0, 0, 0, .35)
+    }
+    ::-webkit-scrollbar-thumb:vertical:active {
+        background-color: rgba(0, 0, 0, .38)
     }
 }

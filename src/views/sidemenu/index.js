@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-	Menu
-} from 'antd';
-import {
-	Layout
+	Menu,
+	Layout,
+	Spin,
+	Icon
 } from 'antd';
 const {
 	Header,
@@ -16,7 +16,6 @@ import {
 	Button
 } from 'antd';
 const TabPane = Tabs.TabPane;
-import Frame from 'react-frame-component';
 import '@/assets/css/sidemenu/index.css';
 class SideMenu extends React.Component {
 	constructor(props) {
@@ -29,7 +28,9 @@ class SideMenu extends React.Component {
 			todoList: [],
 			completed: 0,
 			activeKey: '',
-			panes:[]
+			panes:[],
+			collapsed:false,
+			spinning:false
 		}
 	}
 	onChange(activeKey){
@@ -79,6 +80,7 @@ class SideMenu extends React.Component {
 		var obj = {
 			title:item.key,
 			view:item.key,
+			isLoading:true,
 			key:this.state.panes.length
 		}
 		for(var i=0; i<this.state.panes.length; i++){
@@ -90,21 +92,37 @@ class SideMenu extends React.Component {
 		this.state.panes.push(obj);
 		this.setState({panes:this.state.panes, activeKey:(this.state.panes.length-1).toString()})
 	}
+	iframeOnload(pane, index){
+		pane.isLoading = false;
+		this.state.panes.splice(index, 1, pane);
+		this.setState({panes:this.state.panes})
+		
+	}
+	toggleCollapsed(){
+		this.setState({
+	     	collapsed: !this.state.collapsed,
+	    });
+	}
 	render() {
 		return (
 			<div className="admin">
 				<Layout>
-					<Header>Header</Header>
+					<Header></Header>
 					<Layout>
 				        <Sider>
-						    <div className="left-side" style={{width:200}}>
-								<Menu mode="inline" theme="dark" onSelect={this.setIframe.bind(this)}>
-								  	<Menu.Item key="as">菜单项</Menu.Item>
-								  	<Menu.SubMenu title="子菜单">
+						    <div className="left-side">
+						    	<div className="toggle-sidebar">
+						    		<a href="javascript:;" onClick={this.toggleCollapsed.bind(this)}>
+							          	<Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
+							        </a>
+						    	</div>
+								<Menu mode="inline" theme="dark" inlineCollapsed={this.state.collapsed} onSelect={this.setIframe.bind(this)}>
+								  	<Menu.Item key="as"><span><Icon type="home" /><span>菜单一</span></span></Menu.Item>
+								  	<Menu.SubMenu title={<span><Icon type="appstore" /><span>菜单二</span></span>}>
 								    	<Menu.Item key="/">子菜单项1</Menu.Item>
 								    	<Menu.Item key="/todo">子菜单项2</Menu.Item>
 								  	</Menu.SubMenu>
-								  	<Menu.Item key="2">单项2</Menu.Item>
+								  	<Menu.Item key="2"><span><Icon type="mail" /><span>菜单三</span></span></Menu.Item>
 								</Menu>
 							</div>
 						</Sider>
@@ -116,12 +134,17 @@ class SideMenu extends React.Component {
 						          	type="editable-card"
 						          	onEdit={this.onEdit.bind(this)}
 						        >
+
 						          	{
 						          		this.state.panes.map((pane,index) => <TabPane tab={pane.title} key={index}>
-						          			<div className="page-box moveup" style={{width:'100%', height:'100%', position:'fixed'}}>
-									     		<iframe width="100%" height="100%" src={pane.view} />
+						          			<div className="page-box moveup">
+						          				<div style={{width:'100%', height:'100%', position:'absolute' ,display:'flex', alignItems:'center', justifyContent:'center'}}>
+								        			<Spin spinning={pane.isLoading} delay={500} />
+											    </div>
+									     		<iframe onLoad={this.iframeOnload.bind(this, pane, index)} width="100%" height="100%" src={pane.view} />
 									     	</div>
-						          		</TabPane>)}
+						          		</TabPane>)
+						          	}
 						     	</Tabs>
 						     	
 				        </Content>
